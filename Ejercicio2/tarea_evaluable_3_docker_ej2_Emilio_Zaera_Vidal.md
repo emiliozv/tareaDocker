@@ -1,13 +1,14 @@
 <div style="text-align: center;">
     <h1>Actividad Evaluable 3</h1>
     <h2>Docker</h2>
-    <h3>Ejercicio 1 - Contenedores en red y Docker Desktop</h3>
+    <h3>Ejercicio 2 - Docker Compose</h3>
     <h3>Despliegue de Aplicaciones Web - DAW Distancia<br>
     CIFP Sect. Industrial y Servicios - La Laboral<br>
     Curso 2024-2025<br>
     01 de abril de 2025<br>
     Emilio Zaera Vidal - 46.911.234-C</h3>
 </div>
+
 
 
 
@@ -74,11 +75,107 @@ git switch ejercicio1
 
  
 
-## 4. Ejercicio 1 - Contenedores en red y Docker Desktop
+## 4. Ejercicio 2 - Docker Compose
 
+#### Breve explicación de la aplicación
 
+**FileBrowser** es una aplicación muy ligera que permite gestionar y visualizar archivos y directorios desde un navegador web, como si fuera un explorador de archivos, pudiendo subir, descargar, renombrar y eliminar archivos, entre otras funciones. 
 
 ---
 
 
 
+#### `compose.yaml`
+
+> Voy a utilizar un volumen y un bind-mount para ver ambas opciones. La configuración estará en un volumen y los datos en un bind-mount.
+
+```yaml
+version: "3"
+
+services:
+  filebrowser:
+    image: hurlenko/filebrowser:latest
+    container_name: filebrowser
+    ports:
+      - "8080:8080"
+    volumes:
+      - file_config:/config          # Volumen gestionado por Docker
+      - ./data:/data                 # Bind mount (carpeta local)
+    restart: unless-stopped
+
+volumes:
+  file_config:
+
+```
+
+![image-20250401194629474](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401194629474.png)
+
+![image-20250401194718704](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401194718704.png)
+
+> `restart: unless-stopped` hace que el contenedor se reinicie automáticamente si se apaga por error o al reiniciar el equipo, **pero no se reinicia si el administrador lo detiene manualmente**.
+
+
+
+
+
+---
+
+#### Despliegue de FileBrowser
+
+```bash
+docker compose up -d
+```
+
+![image-20250401195712085](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401195712085.png)
+
+![image-20250401195906579](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401195906579.png)
+
+> Aunque en Docker Desktop aparezca el `ejercicio2` en el nombre del contenedor, realmente es `filebrowser`, tal como indicamos el el `yaml`.  Lo que se ve en **Docker Desktop** (el nombre de la carpeta o el proyecto) es solo un **nombre de grupo** que pone la interfaz para organizar los servicios, pero el contenedor real sí tiene el nombre que yo configuré.
+
+A continuación, desde el navegador entramos en la interfaz gráfica de la aplicación:
+
+```url
+http://localhost:8080
+```
+
+<img src="./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401200108059.png" alt="image-20250401200108059" style="zoom:50%;" />
+
+<img src="./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401200137666.png" alt="image-20250401200137666" style="zoom:50%;" />
+
+Creo una carpeta `ejercicio2` y un fichero `ejercicio2.txt` con contenido:
+
+<img src="./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401200309650.png" alt="image-20250401200309650" style="zoom:50%;" />
+
+---
+
+
+
+#### Carpeta y volumen creados
+
+```bash
+docker inspect filebrowser
+```
+
+![image-20250401201249078](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401201249078.png)
+
+Como podemos ver en la captura anterior, en la sección "Mounts" vemos el bind-mount para los datos y el volumen para la configuración.
+
+Directorio del bind-mount para los datos:
+
+![image-20250401201526396](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401201526396.png)
+
+Como estoy en windows, usando Docker Desktop, el volumen vive dentro de la máquina virtual de Docker, que no es visible desde el explorador de windows. Sin embargo, en Docker Destkop - Volumes, vemos lo siguiente:
+
+![image-20250401202410623](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401202410623.png)
+
+![image-20250401202425356](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401202425356.png)
+
+---
+
+
+
+#### Subida de un fichero y cambio de idioma en FileBrowser
+
+![image-20250401202723261](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401202723261.png)
+
+Como podemos obervar en la captura de pantalla, se ha subido el fichero `pdf` del enunciado de la tarea y ya se ve la interfaz en español.

@@ -1,0 +1,13 @@
+services:
+  filebrowser:
+    image: hurlenko/filebrowser:latest
+    container_name: filebrowser
+    ports:
+      - "8080:8080"
+    volumes:
+      - file_config:/config          # Volumen gestionado por Docker
+      - ./data:/data                 # Bind mount (carpeta local)
+    restart: unless-stopped
+
+volumes:
+  file_config:
