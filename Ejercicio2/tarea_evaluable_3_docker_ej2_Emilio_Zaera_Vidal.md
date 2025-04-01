@@ -1,7 +1,7 @@
 <div style="text-align: center;">
-    <h1>Actividad Evaluable 3</h1><br>
-    <h2>Docker</h2><br>
-    <h2>Ejercicio 2 - Docker Compose</h2><br>
+    <h1>Actividad Evaluable 3</h1>
+    <h2>Docker</h2>
+    <h3>Ejercicio 1 - Contenedores en red y Docker Desktop</h3>
     <h3>Despliegue de Aplicaciones Web - DAW Distancia<br>
     CIFP Sect. Industrial y Servicios - La Laboral<br>
     Curso 2024-2025<br>
@@ -39,7 +39,42 @@ La metodología propuesta para esta tarea consiste en la resolución práctica d
 
 
 
-## 3. Ejercicio 2 - Docker Compose
+## 3. Preparativos
+
+### Creación de un nuevo repositorio `tareaDocker`
+
+Creo un nuevo repositorio público en [mi GitHub](https://github.com/emiliozv/tareaDocker) para la tarea:
+
+<img src="./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401103607546.png" alt="image-20250401103607546" style="zoom:50%;" />
+
+
+
+### Clonado y vinculación en local
+
+Trabajaré en local para, al finalizar, subir todo al repositorio remoto en GitHub. Para ello, creo un repositorio local mediante la línea de comandos de git, genero las carpetas y los ficheros `.md`, y lo vinculo con el remoto:
+
+![image-20250401110718554](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401110718554.png)
+
+![image-20250401110750707](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401110750707.png)
+
+![image-20250401110818708](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401110818708.png)
+
+![image-20250401110840523](./tarea_evaluable_3_docker_ej2_Emilio_Zaera_Vidal.assets/image-20250401110840523.png)
+
+
+
+### Creación de las ramas
+
+Creo las 3 ramas y cambio a ellas cuando lo necesite. Ejemplo con rama `ejercicio1`:
+
+```bash
+git branch ejercicio1
+git switch ejercicio1
+```
+
+ 
+
+## 4. Ejercicio 1 - Contenedores en red y Docker Desktop
 
 
 
